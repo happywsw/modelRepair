@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<epml:epml xmlns:epml='http://www.epml.de'>
+<definitions>
+<definition defId='1'/>
+<definition defId='2'/>
+<definition defId='3'/>
+<definition defId='4'/>
+<definition defId='5'/>
+<definition defId='6'/>
+<definition defId='7'/>
+<definition defId='8'/>
+<definition defId='9'/>
+<definition defId='10'/>
+<definition defId='11'/>
+<definition defId='12'/>
+<definition defId='13'/>
+<definition defId='14'/>
+<definition defId='15'/>
+
+</definitions>
+<directory name='main'>
+<epc epcId='1' name='Configurable EPC'>
+<function id='1' defRef='1'>
+<name>A\ncomplete</name>
+</function>
+<arc id='22'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='1' target='21'/>
+</arc>
+<function id='2' defRef='2'>
+<name>C\ncomplete</name>
+</function>
+<arc id='23'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='2' target='17'/>
+</arc>
+<function id='3' defRef='3'>
+<name>G\ncomplete</name>
+</function>
+<arc id='24'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='3' target='20'/>
+</arc>
+<function id='4' defRef='4'>
+<name>E\ncomplete</name>
+</function>
+<arc id='25'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='4' target='19'/>
+</arc>
+<function id='5' defRef='5'>
+<name>F\ncomplete</name>
+</function>
+<arc id='26'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='5' target='20'/>
+</arc>
+<function id='6' defRef='6'>
+<name>D\ncomplete</name>
+</function>
+<arc id='27'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='6' target='19'/>
+</arc>
+<function id='7' defRef='7'>
+<name>B\ncomplete</name>
+</function>
+<arc id='28'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='7' target='17'/>
+</arc>
+<event id='8' defRef='8'>
+<name>Status change to \nC complete</name></event>
+<arc id='29'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='8' target='2'/>
+</arc>
+<event id='9' defRef='9'>
+<name>Status change to \nG complete</name></event>
+<arc id='30'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='9' target='3'/>
+</arc>
+<event id='10' defRef='10'>
+<name>Status change to \nE complete</name></event>
+<arc id='31'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='10' target='4'/>
+</arc>
+<event id='11' defRef='11'>
+<name>Status change to \nF complete</name></event>
+<arc id='32'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='11' target='5'/>
+</arc>
+<event id='12' defRef='12'>
+<name>Status change to \nD complete</name></event>
+<arc id='33'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='12' target='6'/>
+</arc>
+<event id='13' defRef='13'>
+<name>Status change to \nB complete</name></event>
+<arc id='34'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='13' target='7'/>
+</arc>
+<event id='14' defRef='14'>
+<name>fictive start</name></event>
+<arc id='35'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='14' target='1'/>
+</arc>
+<event id='15' defRef='15'>
+<name>fictive end</name></event>
+<and id='16'>
+</and>
+<arc id='36'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='16' target='9'/>
+</arc>
+<xor id='17'>
+</xor>
+<arc id='37'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='17' target='16'/>
+</arc>
+<and id='18'>
+</and>
+<arc id='38'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='18' target='11'/>
+</arc>
+<xor id='19'>
+</xor>
+<arc id='39'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='19' target='18'/>
+</arc>
+<xor id='20'>
+</xor>
+<arc id='40'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='20' target='15'/>
+</arc>
+<xor id='21'>
+</xor>
+<arc id='41'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='21' target='10'/>
+</arc>
+<arc id='42'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='21' target='8'/>
+</arc>
+<arc id='43'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='21' target='13'/>
+</arc>
+<arc id='44'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='21' target='12'/>
+</arc>
+<arc id='45'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='21' target='16'/>
+</arc>
+<arc id='46'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='21' target='18'/>
+</arc>
+</epc>
+</directory>
+
+</epml:epml>

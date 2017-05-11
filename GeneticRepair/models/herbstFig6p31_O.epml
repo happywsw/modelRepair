@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<epml:epml xmlns:epml='http://www.epml.de'>
+<definitions>
+<definition defId='1'/>
+<definition defId='2'/>
+<definition defId='3'/>
+<definition defId='4'/>
+<definition defId='5'/>
+<definition defId='6'/>
+<definition defId='7'/>
+<definition defId='8'/>
+<definition defId='9'/>
+<definition defId='10'/>
+<definition defId='11'/>
+<definition defId='12'/>
+<definition defId='13'/>
+<definition defId='14'/>
+<definition defId='15'/>
+<definition defId='16'/>
+<definition defId='17'/>
+<definition defId='18'/>
+<definition defId='19'/>
+<definition defId='20'/>
+<definition defId='21'/>
+
+</definitions>
+<directory name='main'>
+<epc epcId='1' name='Configurable EPC'>
+<function id='1' defRef='1'>
+<graphics>
+<position height='20' width='60' x='70' y='-503'/>
+</graphics>
+<name>H\ncomplete</name>
+</function>
+<arc id='27'>
+<graphics>
+<position x='100' y='-483'/>
+<position x='100' y='-459'/>
+</graphics>
+<flow source='1' target='22'/>
+</arc>
+<function id='2' defRef='2'>
+<graphics>
+<position height='20' width='60' x='151' y='-117'/>
+</graphics>
+<name>G\ncomplete</name>
+</function>
+<arc id='28'>
+<graphics>
+<position x='181' y='-97'/>
+<position x='214' y='-73'/>
+</graphics>
+<flow source='2' target='26'/>
+</arc>
+<function id='3' defRef='3'>
+<graphics>
+<position height='20' width='60' x='223' y='-271'/>
+</graphics>
+<name>F\ncomplete</name>
+</function>
+<arc id='29'>
+<graphics>
+<position x='253' y='-251'/>
+<position x='214' y='-73'/>
+</graphics>
+<flow source='3' target='26'/>
+</arc>
+<function id='4' defRef='4'>
+<graphics>
+<position height='20' width='60' x='176' y='-503'/>
+</graphics>
+<name>E\ncomplete</name>
+</function>
+<arc id='30'>
+<graphics>
+<position x='206' y='-483'/>
+<position x='255' y='-459'/>
+</graphics>
+<flow source='4' target='24'/>
+</arc>
+<function id='5' defRef='5'>
+<graphics>
+<position height='20' width='60' x='276' y='-503'/>
+</graphics>
+<name>D\ncomplete</name>
+</function>
+<arc id='31'>
+<graphics>
+<position x='306' y='-483'/>
+<position x='255' y='-459'/>
+</graphics>
+<flow source='5' target='24'/>
+</arc>
+<function id='6' defRef='6'>
+<graphics>
+<position height='20' width='60' x='22' y='-367'/>
+</graphics>
+<name>C\ncomplete</name>
+</function>
+<arc id='32'>
+<graphics>
+<position x='52' y='-347'/>
+<position x='151' y='-320'/>
+</graphics>
+<flow source='6' target='23'/>
+</arc>
+<function id='7' defRef='7'>
+<graphics>
+<position height='20' width='60' x='121' y='-367'/>
+</graphics>
+<name>B\ncomplete</name>
+</function>
+<arc id='33'>
+<graphics>
+<position x='151' y='-347'/>
+<position x='151' y='-320'/>
+</graphics>
+<flow source='7' target='23'/>
+</arc>
+<function id='8' defRef='8'>
+<graphics>
+<position height='20' width='60' x='128' y='-213'/>
+</graphics>
+<name>A\ncomplete</name>
+</function>
+<arc id='34'>
+<graphics>
+<position x='158' y='-193'/>
+<position x='164' y='-166'/>
+</graphics>
+<flow source='8' target='12'/>
+</arc>
+<function id='9' defRef='9'>
+<graphics>
+<position height='20' width='60' x='224' y='-367'/>
+</graphics>
+<name>A\ncomplete</name>
+</function>
+<arc id='35'>
+<graphics>
+<position x='254' y='-347'/>
+<position x='254' y='-320'/>
+</graphics>
+<flow source='9' target='13'/>
+</arc>
+<function id='10' defRef='10'>
+<graphics>
+<position height='20' width='60' x='174' y='-639'/>
+</graphics>
+<name>A\ncomplete</name>
+</function>
+<arc id='36'>
+<graphics>
+<position x='204' y='-619'/>
+<position x='204' y='-595'/>
+</graphics>
+<flow source='10' target='25'/>
+</arc>
+<event id='11' defRef='11'>
+<graphics>
+<position height='20' width='60' x='70' y='-552'/>
+</graphics>
+<name>Status change to \nH complete</name></event>
+<arc id='37'>
+<graphics>
+<position x='100' y='-532'/>
+<position x='100' y='-503'/>
+</graphics>
+<flow source='11' target='1'/>
+</arc>
+<event id='12' defRef='12'>
+<graphics>
+<position height='20' width='60' x='134' y='-166'/>
+</graphics>
+<name>Status change to \nG complete</name></event>
+<arc id='38'>
+<graphics>
+<position x='164' y='-146'/>
+<position x='181' y='-117'/>
+</graphics>
+<flow source='12' target='2'/>
+</arc>
+<event id='13' defRef='13'>
+<graphics>
+<position height='20' width='60' x='224' y='-320'/>
+</graphics>
+<name>Status change to \nF complete</name></event>
+<arc id='39'>
+<graphics>
+<position x='254' y='-300'/>
+<position x='253' y='-271'/>
+</graphics>
+<flow source='13' target='3'/>
+</arc>
+<event id='14' defRef='14'>
+<graphics>
+<position height='20' width='60' x='174' y='-552'/>
+</graphics>
+<name>Status change to \nE complete</name></event>
+<arc id='40'>
+<graphics>
+<position x='204' y='-532'/>
+<position x='206' y='-503'/>
+</graphics>
+<flow source='14' target='4'/>
+</arc>
+<event id='15' defRef='15'>
+<graphics>
+<position height='20' width='60' x='278' y='-552'/>
+</graphics>
+<name>Status change to \nD complete</name></event>
+<arc id='41'>
+<graphics>
+<position x='308' y='-532'/>
+<position x='306' y='-503'/>
+</graphics>
+<flow source='15' target='5'/>
+</arc>
+<event id='16' defRef='16'>
+<graphics>
+<position height='20' width='60' x='17' y='-416'/>
+</graphics>
+<name>Status change to \nC complete</name></event>
+<arc id='42'>
+<graphics>
+<position x='47' y='-396'/>
+<position x='52' y='-367'/>
+</graphics>
+<flow source='16' target='6'/>
+</arc>
+<event id='17' defRef='17'>
+<graphics>
+<position height='20' width='60' x='121' y='-416'/>
+</graphics>
+<name>Status change to \nB complete</name></event>
+<arc id='43'>
+<graphics>
+<position x='151' y='-396'/>
+<position x='151' y='-367'/>
+</graphics>
+<flow source='17' target='7'/>
+</arc>
+<event id='18' defRef='18'>
+<graphics>
+<position height='20' width='60' x='123' y='-271'/>
+</graphics>
+<name>Status change to \nA complete</name></event>
+<arc id='44'>
+<graphics>
+<position x='153' y='-251'/>
+<position x='158' y='-213'/>
+</graphics>
+<flow source='18' target='8'/>
+</arc>
+<event id='19' defRef='19'>
+<graphics>
+<position height='20' width='60' x='225' y='-416'/>
+</graphics>
+<name>Status change to \nA complete</name></event>
+<arc id='45'>
+<graphics>
+<position x='255' y='-396'/>
+<position x='254' y='-367'/>
+</graphics>
+<flow source='19' target='9'/>
+</arc>
+<event id='20' defRef='20'>
+<graphics>
+<position height='20' width='60' x='174' y='-688'/>
+</graphics>
+<name>fictive start</name></event>
+<arc id='46'>
+<graphics>
+<position x='204' y='-668'/>
+<position x='204' y='-639'/>
+</graphics>
+<flow source='20' target='10'/>
+</arc>
+<event id='21' defRef='21'>
+<graphics>
+<position height='20' width='60' x='184' y='-30'/>
+</graphics>
+<name>fictive end</name></event>
+<and id='22'>
+<graphics>
+<position height='20' width='20' x='90' y='-459'/>
+</graphics>
+</and>
+<arc id='47'>
+<graphics>
+<position x='100' y='-439'/>
+<position x='151' y='-416'/>
+</graphics>
+<flow source='22' target='17'/>
+</arc>
+<arc id='48'>
+<graphics>
+<position x='100' y='-439'/>
+<position x='47' y='-416'/>
+</graphics>
+<flow source='22' target='16'/>
+</arc>
+<and id='23'>
+<graphics>
+<position height='20' width='20' x='141' y='-320'/>
+</graphics>
+</and>
+<arc id='49'>
+<graphics>
+<position x='151' y='-300'/>
+<position x='153' y='-271'/>
+</graphics>
+<flow source='23' target='18'/>
+</arc>
+<xor id='24'>
+<graphics>
+<position height='20' width='20' x='245' y='-459'/>
+</graphics>
+</xor>
+<arc id='50'>
+<graphics>
+<position x='255' y='-439'/>
+<position x='255' y='-416'/>
+</graphics>
+<flow source='24' target='19'/>
+</arc>
+<xor id='25'>
+<graphics>
+<position height='20' width='20' x='194' y='-595'/>
+</graphics>
+</xor>
+<arc id='51'>
+<graphics>
+<position x='204' y='-575'/>
+<position x='204' y='-552'/>
+</graphics>
+<flow source='25' target='14'/>
+</arc>
+<arc id='52'>
+<graphics>
+<position x='204' y='-575'/>
+<position x='308' y='-552'/>
+</graphics>
+<flow source='25' target='15'/>
+</arc>
+<arc id='53'>
+<graphics>
+<position x='204' y='-575'/>
+<position x='100' y='-552'/>
+</graphics>
+<flow source='25' target='11'/>
+</arc>
+<xor id='26'>
+<graphics>
+<position height='20' width='20' x='204' y='-73'/>
+</graphics>
+</xor>
+<arc id='54'>
+<graphics>
+<position x='214' y='-53'/>
+<position x='214' y='-30'/>
+</graphics>
+<flow source='26' target='21'/>
+</arc>
+</epc>
+</directory>
+
+</epml:epml>
