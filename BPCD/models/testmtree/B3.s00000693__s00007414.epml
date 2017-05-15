@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<epml xmlns="http://www.epml.de">
+  <coordinates xOrigin="leftToRight" yOrigin="topToBottom" />
+  <directory name="Root">
+    <epc epcId="1" name="B3.s00000693__s00007414">
+      <function id="1">
+        <name>s00001056</name>
+      </function>
+      <function id="2">
+        <name>s00001120</name>
+      </function>
+      <function id="3">
+        <name>s00001057</name>
+      </function>
+      <function id="4">
+        <name>s00001058</name>
+      </function>
+      <function id="5">
+        <name>s00001059</name>
+      </function>
+      <xor id="6" />
+      <xor id="7" />
+      <and id="8" />
+      <and id="9" />
+      <and id="10" />
+      <function id="11">
+        <name>s00007412</name>
+      </function>
+      <function id="12">
+        <name>s00007394</name>
+      </function>
+      <function id="13">
+        <name>s00004189</name>
+      </function>
+      <function id="14">
+        <name>s00001360</name>
+      </function>
+      <function id="15">
+        <name>s00007396</name>
+      </function>
+      <function id="17">
+        <name>s00007260</name>
+      </function>
+      <function id="16">
+        <name>s00007125</name>
+      </function>
+      <xor id="19" />
+      <function id="18">
+        <name>s00007393</name>
+      </function>
+      <and id="21" />
+      <function id="20">
+        <name>exit_node</name>
+      </function>
+      <function id="22">
+        <name>entry_node</name>
+      </function>
+      <arc id="23">
+        <flow source="8" target="9" />
+      </arc>
+      <arc id="24">
+        <flow source="7" target="11" />
+      </arc>
+      <arc id="25">
+        <flow source="16" target="18" />
+      </arc>
+      <arc id="26">
+        <flow source="18" target="7" />
+      </arc>
+      <arc id="27">
+        <flow source="17" target="5" />
+      </arc>
+      <arc id="28">
+        <flow source="14" target="9" />
+      </arc>
+      <arc id="29">
+        <flow source="9" target="15" />
+      </arc>
+      <arc id="30">
+        <flow source="6" target="17" />
+      </arc>
+      <arc id="31">
+        <flow source="21" target="2" />
+      </arc>
+      <arc id="32">
+        <flow source="8" target="12" />
+      </arc>
+      <arc id="33">
+        <flow source="19" target="20" />
+      </arc>
+      <arc id="34">
+        <flow source="2" target="10" />
+      </arc>
+      <arc id="35">
+        <flow source="15" target="6" />
+      </arc>
+      <arc id="36">
+        <flow source="1" target="10" />
+      </arc>
+      <arc id="37">
+        <flow source="22" target="21" />
+      </arc>
+      <arc id="38">
+        <flow source="4" target="19" />
+      </arc>
+      <arc id="39">
+        <flow source="13" target="4" />
+      </arc>
+      <arc id="40">
+        <flow source="3" target="19" />
+      </arc>
+      <arc id="41">
+        <flow source="5" target="19" />
+      </arc>
+      <arc id="42">
+        <flow source="12" target="14" />
+      </arc>
+      <arc id="43">
+        <flow source="21" target="1" />
+      </arc>
+      <arc id="44">
+        <flow source="6" target="13" />
+      </arc>
+      <arc id="45">
+        <flow source="10" target="16" />
+      </arc>
+      <arc id="46">
+        <flow source="11" target="3" />
+      </arc>
+      <arc id="47">
+        <flow source="7" target="8" />
+      </arc>
+    </epc>
+  </directory>
+</epml>
+
+

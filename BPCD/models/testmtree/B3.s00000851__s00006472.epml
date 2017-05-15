@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<epml xmlns="http://www.epml.de">
+  <coordinates xOrigin="leftToRight" yOrigin="topToBottom" />
+  <directory name="Root">
+    <epc epcId="1" name="B3.s00000851__s00006472">
+      <function id="1">
+        <name>s00001056</name>
+      </function>
+      <function id="2">
+        <name>s00001057</name>
+      </function>
+      <function id="3">
+        <name>s00001294</name>
+      </function>
+      <function id="4">
+        <name>s00001809</name>
+      </function>
+      <function id="5">
+        <name>s00006473</name>
+      </function>
+      <function id="6">
+        <name>s00006447</name>
+      </function>
+      <function id="7">
+        <name>s00006474</name>
+      </function>
+      <function id="8">
+        <name>s00006450</name>
+      </function>
+      <function id="9">
+        <name>s00006446</name>
+      </function>
+      <function id="10">
+        <name>s00002655</name>
+      </function>
+      <arc id="11">
+        <flow source="8" target="3" />
+      </arc>
+      <arc id="12">
+        <flow source="7" target="2" />
+      </arc>
+      <arc id="13">
+        <flow source="1" target="10" />
+      </arc>
+      <arc id="14">
+        <flow source="10" target="4" />
+      </arc>
+      <arc id="15">
+        <flow source="4" target="9" />
+      </arc>
+      <arc id="16">
+        <flow source="6" target="7" />
+      </arc>
+      <arc id="17">
+        <flow source="5" target="8" />
+      </arc>
+      <arc id="18">
+        <flow source="3" target="6" />
+      </arc>
+      <arc id="19">
+        <flow source="9" target="5" />
+      </arc>
+    </epc>
+  </directory>
+</epml>
+
+

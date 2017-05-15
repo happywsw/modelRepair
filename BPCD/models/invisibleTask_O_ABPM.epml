@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<epml:epml xmlns:epml='http://www.epml.de'>
+<definitions>
+<definition defId='1'/>
+<definition defId='2'/>
+<definition defId='3'/>
+<definition defId='4'/>
+<definition defId='5'/>
+<definition defId='6'/>
+<definition defId='7'/>
+<definition defId='8'/>
+<definition defId='9'/>
+<definition defId='10'/>
+<definition defId='11'/>
+<definition defId='12'/>
+<definition defId='13'/>
+
+</definitions>
+<directory name='main'>
+<epc epcId='1' name='Configurable EPC'>
+<function id='1' defRef='1'>
+<graphics>
+<position height='20' width='60' x='123' y='-77'/>
+</graphics>
+<name>T6\ncomplete</name>
+</function>
+<arc id='16'>
+<graphics>
+<position x='153' y='-57'/>
+<position x='153' y='-30'/>
+</graphics>
+<flow source='1' target='13'/>
+</arc>
+<function id='2' defRef='2'>
+<graphics>
+<position height='20' width='60' x='123' y='-349'/>
+</graphics>
+<name>T5\ncomplete</name>
+</function>
+<arc id='17'>
+<graphics>
+<position x='153' y='-329'/>
+<position x='153' y='-305'/>
+</graphics>
+<flow source='2' target='15'/>
+</arc>
+<function id='3' defRef='3'>
+<graphics>
+<position height='20' width='60' x='123' y='-541'/>
+</graphics>
+<name>T4\ncomplete</name>
+</function>
+<arc id='18'>
+<graphics>
+<position x='153' y='-521'/>
+<position x='153' y='-494'/>
+</graphics>
+<flow source='3' target='10'/>
+</arc>
+<function id='4' defRef='4'>
+<graphics>
+<position height='20' width='60' x='123' y='-445'/>
+</graphics>
+<name>T3\ncomplete</name>
+</function>
+<arc id='19'>
+<graphics>
+<position x='153' y='-425'/>
+<position x='153' y='-398'/>
+</graphics>
+<flow source='4' target='8'/>
+</arc>
+<function id='5' defRef='5'>
+<graphics>
+<position height='20' width='60' x='22' y='-213'/>
+</graphics>
+<name>T2\ncomplete</name>
+</function>
+<arc id='20'>
+<graphics>
+<position x='52' y='-193'/>
+<position x='153' y='-169'/>
+</graphics>
+<flow source='5' target='14'/>
+</arc>
+<function id='6' defRef='6'>
+<graphics>
+<position height='20' width='60' x='123' y='-213'/>
+</graphics>
+<name>T1\ncomplete</name>
+</function>
+<arc id='21'>
+<graphics>
+<position x='153' y='-193'/>
+<position x='153' y='-169'/>
+</graphics>
+<flow source='6' target='14'/>
+</arc>
+<event id='7' defRef='7'>
+<graphics>
+<position height='20' width='60' x='123' y='-126'/>
+</graphics>
+<name>Status change to \nT6 complete</name></event>
+<arc id='22'>
+<graphics>
+<position x='153' y='-106'/>
+<position x='153' y='-77'/>
+</graphics>
+<flow source='7' target='1'/>
+</arc>
+<event id='8' defRef='8'>
+<graphics>
+<position height='20' width='60' x='123' y='-398'/>
+</graphics>
+<name>Status change to \nT5 complete</name></event>
+<arc id='23'>
+<graphics>
+<position x='153' y='-378'/>
+<position x='153' y='-349'/>
+</graphics>
+<flow source='8' target='2'/>
+</arc>
+<event id='9' defRef='9'>
+<graphics>
+<position height='20' width='60' x='123' y='-590'/>
+</graphics>
+<name>fictive start</name></event>
+<arc id='24'>
+<graphics>
+<position x='153' y='-570'/>
+<position x='153' y='-541'/>
+</graphics>
+<flow source='9' target='3'/>
+</arc>
+<event id='10' defRef='10'>
+<graphics>
+<position height='20' width='60' x='123' y='-494'/>
+</graphics>
+<name>Status change to \nT3 complete</name></event>
+<arc id='25'>
+<graphics>
+<position x='153' y='-474'/>
+<position x='153' y='-445'/>
+</graphics>
+<flow source='10' target='4'/>
+</arc>
+<event id='11' defRef='11'>
+<graphics>
+<position height='20' width='60' x='17' y='-262'/>
+</graphics>
+<name>Status change to \nT2 complete</name></event>
+<arc id='26'>
+<graphics>
+<position x='47' y='-242'/>
+<position x='52' y='-213'/>
+</graphics>
+<flow source='11' target='5'/>
+</arc>
+<event id='12' defRef='12'>
+<graphics>
+<position height='20' width='60' x='123' y='-262'/>
+</graphics>
+<name>Status change to \nT1 complete</name></event>
+<arc id='27'>
+<graphics>
+<position x='153' y='-242'/>
+<position x='153' y='-213'/>
+</graphics>
+<flow source='12' target='6'/>
+</arc>
+<event id='13' defRef='13'>
+<graphics>
+<position height='20' width='60' x='123' y='-30'/>
+</graphics>
+<name>fictive end</name></event>
+<xor id='14'>
+<graphics>
+<position height='20' width='20' x='143' y='-169'/>
+</graphics>
+</xor>
+<arc id='28'>
+<graphics>
+<position x='153' y='-149'/>
+<position x='153' y='-126'/>
+</graphics>
+<flow source='14' target='7'/>
+</arc>
+<xor id='15'>
+<graphics>
+<position height='20' width='20' x='143' y='-305'/>
+</graphics>
+</xor>
+<arc id='29'>
+<graphics>
+<position x='153' y='-285'/>
+<position x='153' y='-262'/>
+</graphics>
+<flow source='15' target='12'/>
+</arc>
+<arc id='30'>
+<graphics>
+<position x='153' y='-285'/>
+<position x='153' y='-169'/>
+</graphics>
+<flow source='15' target='14'/>
+</arc>
+<arc id='31'>
+<graphics>
+<position x='153' y='-285'/>
+<position x='47' y='-262'/>
+</graphics>
+<flow source='15' target='11'/>
+</arc>
+</epc>
+</directory>
+
+</epml:epml>
