@@ -134,8 +134,7 @@ public class GeneticRepair {
 		populations = MethodsOverIndividuals.removeDuplicates(populations);
 		//return new DTGeneticMinerResult(populations, log);
 		
-		System.out.println("time:::"+fitness.getTime()+","+fitness.getTime()/(100*10));
-		System.out.println("time2:::"+fitness.getTime2()+","+fitness.getTime()/(100*10));
+		System.out.println("time:::"+fitness.getTime()/(100*10));
 		return populations;
 	}
 	

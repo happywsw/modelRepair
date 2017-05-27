@@ -50,6 +50,7 @@ public class ModelSimilarity {
 		return similarity;
 	}
 	
+	
 	public double calculateSim(EPC originalEPC, EPC modifyEPC) {
 		
 		EPCHelper epc = new EPCHelper(originalEPC);
@@ -58,7 +59,6 @@ public class ModelSimilarity {
 		Graph oriGraph = epc.getGraph();
 		Graph modGraph = epc2.getGraph();
 		
-		//List<String> operationList = HighLevelOP.GetHighLevelOPList(oriGraph, modGraph);
 		
 		double similarity = HighLevelOP.GetHighLevelOPSimilarity(oriGraph, modGraph);
 
@@ -69,8 +69,8 @@ public class ModelSimilarity {
 		
 		//calculate similarity between original model and modify model
 		
-		String originalPath =  System.getProperty("user.dir") + "\\models\\non-free-choice_R_ABPM.epml";
-		String modifyPath =    System.getProperty("user.dir") + "\\models\\non-free-choice_opt_1.0.epml";
+		String originalPath =  System.getProperty("user.dir") + "\\models\\short-loop_O_ABPM.epml";
+		String modifyPath =    System.getProperty("user.dir") + "\\models\\short_loop_0.0.epml";
 		EPC originalEPC = EPC.loadEPML(originalPath);
 		EPC modifyEPC = EPC.loadEPML(modifyPath);
 		originalEPC.cleanEPC();
@@ -78,7 +78,7 @@ public class ModelSimilarity {
 		
 		long start = System.nanoTime();
 		double similarity = new ModelSimilarity().calculateSim(originalEPC, modifyEPC);
-		System.out.println("time"+(System.nanoTime()-start)/Math.pow(10, 9)+"s");
+		System.out.println("time"+(System.nanoTime()-start));
 		//calculate delta(log,originalModel)
 		System.out.println("similarity:"+similarity);
 	}

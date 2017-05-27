@@ -7,11 +7,11 @@ public class OPNode {
 	/**
 	 * @author ËÎ½ð·ï 
 	 */
-	//public String type;//startevent,endevent,activity,xor,and
+	public List<String> types = new ArrayList<String>();//startevent,endevent,activity,xor,and
 	public String id;
 	public String label;
-	public List<OPNode> children= new ArrayList<OPNode>();;
-	public List<OPNode> parents = new ArrayList<OPNode>();;
+	public List<OPNode> children= new ArrayList<OPNode>();
+	public List<OPNode> parents = new ArrayList<OPNode>();
 	
 	public OPNode(){
 		
@@ -20,6 +20,7 @@ public class OPNode {
 	public OPNode(OPNode node){
 		this.id = node.id;
 		this.label = node.label;
+		this.types = node.types;
 		this.children = node.children;
 		this.parents = node.parents;
 	}
@@ -30,6 +31,25 @@ public class OPNode {
 	
 	public void setId(String id) {
 		this.id = id;
+	}
+	public List<String> getTypes(){
+		return this.types;
+	}
+	
+	public void setTypes(List<String> list){
+		this.types = list;
+	}
+	
+	public void addType(String type){
+		if(this.types==null){ 
+			List<String> list=new ArrayList<String>();
+			list.add(type);
+			this.setTypes(list);
+		}
+		else{
+			this.types.add(type);
+		}
+		
 	}
 	
 	public List<OPNode> getChildren() {

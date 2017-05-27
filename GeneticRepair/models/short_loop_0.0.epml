@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<epml:epml xmlns:epml='http://www.epml.de'>
+<definitions>
+<definition defId='1'/>
+<definition defId='2'/>
+<definition defId='3'/>
+<definition defId='4'/>
+<definition defId='5'/>
+<definition defId='6'/>
+<definition defId='7'/>
+
+</definitions>
+<directory name='main'>
+<epc epcId='1' name='Configurable EPC'>
+<function id='1' defRef='1'>
+<name>T0\ncomplete</name>
+</function>
+<arc id='10'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='1' target='5'/>
+</arc>
+<function id='2' defRef='2'>
+<name>T1\ncomplete</name>
+</function>
+<arc id='11'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='2' target='9'/>
+</arc>
+<function id='3' defRef='3'>
+<name>T4\ncomplete</name>
+</function>
+<arc id='12'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='3' target='9'/>
+</arc>
+<function id='4' defRef='4'>
+<name>T3\ncomplete</name>
+</function>
+<arc id='13'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='4' target='9'/>
+</arc>
+<event id='5' defRef='5'>
+<name>Status change to \nT1 complete</name></event>
+<arc id='14'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='5' target='2'/>
+</arc>
+<event id='6' defRef='6'>
+<name>fictive start</name></event>
+<arc id='15'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='6' target='8'/>
+</arc>
+<event id='7' defRef='7'>
+<name>fictive end</name></event>
+<xor id='8'>
+</xor>
+<arc id='16'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='8' target='4'/>
+</arc>
+<arc id='17'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='8' target='1'/>
+</arc>
+<arc id='18'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='8' target='3'/>
+</arc>
+<xor id='9'>
+</xor>
+<arc id='19'>
+<graphics>
+<position x='0' y='10'/>
+<position x='0' y='-10'/>
+</graphics>
+<flow source='9' target='7'/>
+</arc>
+</epc>
+</directory>
+
+</epml:epml>

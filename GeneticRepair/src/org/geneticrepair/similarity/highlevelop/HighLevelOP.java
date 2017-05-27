@@ -1,17 +1,23 @@
 package org.geneticrepair.similarity.highlevelop;
 
-import java.awt.print.Printable;
+import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+import java.util.Map.Entry;
 
+import org.apache.commons.collections.Bag;
+import org.apache.html.dom.NameNodeListImpl;
 import org.geneticrepair.similarity.graphconvert.GraphConvert;
 import org.geneticrepair.similarity.util.OPGraph;
 import org.geneticrepair.similarity.util.OPLine;
 import org.geneticrepair.similarity.util.OPNode;
+import org.semanticweb.kaon2.gui.j;
 
-import cern.colt.Timer;
 import de.bpt.hpi.graph.*;
 
 public class HighLevelOP {
@@ -23,58 +29,48 @@ public class HighLevelOP {
 	public static double GetHighLevelOPSimilarity(Graph graph1, Graph graph2){
 		GraphConvert convert1 = new GraphConvert(graph1);
 		GraphConvert convert2 = new GraphConvert(graph2);
-		
+				
 		OPGraph opgraph1 = convert1.getOPGraph();
 		OPGraph opgraph2 = convert2.getOPGraph();
 		
-		List<String> common = new LinkedList<String>();
-		common = commonLabels(opgraph1.nodes, opgraph2.nodes);
+		List<String> common = commonLabels(opgraph1.nodes, opgraph2.nodes);
 		
-		double distance = GetHighLevelOPDistance(graph1, graph2);
+		double distance = GetHighLevelOPDistance(common, opgraph1, opgraph2);
 		double similarity = 1 - distance/(opgraph1.nodes.size() +opgraph2.nodes.size() - common.size());
 		
 		return similarity;
 	}
 	
-	public static int GetHighLevelOPDistance(Graph graph1, Graph graph2){
-		List<String> list = GetHighLevelOPList(graph1, graph2);
+	public static int GetHighLevelOPDistance(List<String> common, OPGraph graph1, OPGraph graph2){
+		int operations = createOptimizedOP(common, graph1, graph2).size();
 		
-		if(list == null)
-			return 0;
-		else
-			return list.size();
+		return operations;
 	}
 	
-	public static List<String> GetHighLevelOPList(Graph graph1, Graph graph2){		
-		GraphConvert convert1 = new GraphConvert(graph1);
-		GraphConvert convert2 = new GraphConvert(graph2);
-		
-		OPGraph opgraph1 = convert1.getOPGraph();
-		OPGraph opgraph2 = convert2.getOPGraph();
-			
-		return calculateHighLevelOP(opgraph1, opgraph2);
-	}
+/*	public static List<String> GetHighLevelOPList(OPGraph graph1, OPGraph graph2){		
+		return calculateHighLevelOP(graph1, graph2);
+	}*/
 	
 	private static void printGraph(OPGraph graph1){
 		for(OPNode node: graph1.nodes)
-			System.out.print(node.id+":"+node.label+" ");
+			System.out.print(node.id+"("+node.label+")\n");
 		System.out.println();
-				
+		
+		System.out.println("edge..........");
 		for(OPLine line : graph1.lines)
 			System.out.print(line.start+"->"+line.end+" ");
 		System.out.println();
 				
-	/*	for(OPNode node: graph1.nodes)
+		/*for(OPNode node: graph1.nodes)
 			for(OPNode node2 : node.parents)
-				System.out.println(node2.label+"->"+node.label);
-	
+				System.out.println(node2.label+"=>"+node.label);
+		*/
 		for(OPNode node: graph1.nodes)
 			for(OPNode node2 : node.children)
-				System.out.println(node.label+"->"+node2.label);	*/	
+				System.out.println(node2.label +"<=" + node.label);		
 	}
 	
 	private static void printMatrix(Matrix m1, Matrix m2, List<OPNode> same1,List<OPNode> same2){
-		System.out.println("same:"+m1.n+","+m2.n);
 		for(int i = 0; i < m1.n; i++){
 			System.out.printf("%12s", same1.get(i).label+"  ");
 			for(int j = 0; j < m1.n; j++)
@@ -91,15 +87,6 @@ public class HighLevelOP {
 		System.out.println("\n--------------------------------------");
 	}
 	
-	private static void printMatrix(Matrix matrix){
-		System.out.println("different:"+matrix.n);
-		for(int i = 0; i < matrix.n; i++){
-			for(int j = 0; j < matrix.n; j++)
-				System.out.print(matrix.matrix[i][j] + "  ");
-			System.out.println();
-		}
-		
-	}
 	
 	/**
 	 * return operation change lists
@@ -108,12 +95,9 @@ public class HighLevelOP {
 	 * @return
 	 */
 	private static List<String> calculateHighLevelOP(OPGraph graph1,OPGraph graph2){
-		
-		//calculate the common set
 		List<String> common = new LinkedList<String>();
 		common = commonLabels(graph1.nodes, graph2.nodes);
-	
-
+		
 		List<String> highLevelOp = new ArrayList<String>();	
 		highLevelOp = createOptimizedOP(common, graph1, graph2);
 		
@@ -122,87 +106,143 @@ public class HighLevelOP {
 	
 	private static List<String> createOptimizedOP(List<String> common, OPGraph graph1, 
 			OPGraph graph2){
-		
-		HashMap<String, Boolean> mapID1 = new HashMap<String, Boolean>();
-		HashMap<String, Boolean> mapID2 = new HashMap<String, Boolean>();
-		HashMap<String, Boolean> mapLabel1 = new HashMap<String, Boolean>();
-		HashMap<String, Boolean> mapLabel2 = new HashMap<String, Boolean>();
-
-		for(OPNode v : graph1.nodes)
-			mapID1.put(v.id, false);
-		for(OPNode v : graph2.nodes)
-			mapID2.put(v.id, false);
-		for(String label : common){
-			if(graph1.getLabelNumber(label) >= graph2.getLabelNumber(label)){
-				mapLabel1.put(label, true);
-				mapLabel2.put(label, false);
-			}
-			else{
-				mapLabel1.put(label, false);
-				mapLabel2.put(label, true);
-			}
-		}
-				
+	
 		List<OPNode> nodeTaken1 = new ArrayList<OPNode>();
 		List<OPNode> nodeTaken2 = new ArrayList<OPNode>(); 
-		List<List<OPNode>> allNodeTaken1 = new ArrayList<List<OPNode>>();
-		List<List<OPNode>> allNodeTaken2 = new ArrayList<List<OPNode>>();
-		
-		for(String node:common){
-			System.out.print(node+"\t");
-		}
-		System.out.println();	
-		//printGraph(graph1);
-		long startTime = System.nanoTime();
-		
-		
-		tryNodeLabel(0, common, graph1, mapID1, mapLabel1, nodeTaken1, allNodeTaken1);
-		//System.out.println("\n--------------------------------------");
-		
-		//printGraph(graph2);
-		tryNodeLabel(0, common, graph2, mapID2, mapLabel2, nodeTaken2, allNodeTaken2);
-		//System.out.println("\n--------------------------------------");
-		long endTime = System.nanoTime();
-		
 	
-		if(allNodeTaken1.isEmpty() || allNodeTaken2.isEmpty())
-			return createHighLevelOP(null, null, graph1, graph2);
+		tryNodeLabel(common, graph1, nodeTaken1);
+		tryNodeLabel(common, graph2, nodeTaken2);
 		
-		List<String> result = new ArrayList<String>();
-		List<String> resultBest = new ArrayList<String>();
-		
-		long startTime2 = System.nanoTime();
-	
-		long calTime = 0L;
-		for(int i = 0; i < allNodeTaken1.size(); i++){
-			for(int j = 0; j < allNodeTaken2.size(); j++){
-				long startTime3 = System.nanoTime();
-				result = createHighLevelOP(allNodeTaken1.get(i), allNodeTaken2.get(j), graph1, graph2);
-				long endTime3 = System.nanoTime();
-				calTime = (endTime3 - startTime3);
-				if(i == 0 && j == 0)
-					resultBest = result;
-				else if(resultBest.size() > result.size())
-					resultBest = result;
-			}
-		}
-		long endTime2 = System.nanoTime();
-		System.out.println();
-		System.out.println("tryNodeLabel:" + (endTime - startTime));
-		System.out.println("createHighLevel:"+ calTime);
-		return resultBest;
+		return createHighLevelOP(nodeTaken1, nodeTaken2, graph1, graph2);
 	}
 	
-	private static void tryNodeLabel(int flag, List<String> common, OPGraph graph, HashMap<String, Boolean> mapIDs,
+	private static OPGraph getPartGraph(List<String> common,OPGraph graph){
+		OPGraph part = new OPGraph();
+		for(OPNode node : graph.nodes){
+			for(String str : common){
+				if(str.equals(node.label)){
+					part.nodes.add(node);
+				}
+			}
+			
+		}
+		
+		for(OPLine line : graph.lines){
+			for(OPNode node : part.nodes){
+				if((line.getStart().equals(node.getId()))|| (line.getEnd().equals(node.getId()))){
+					part.lines.add(line);
+				}
+			}
+		}
+		return part;
+		
+	}
+	
+	private static int findSrcNode(OPGraph graph){
+		for(int i = 0;i<graph.nodes.size();i++){
+			if(graph.nodes.get(i).label.equals("fictive start")){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private static int findLine(OPGraph graph,String id){
+		for(int i = 0;i<graph.nodes.size();i++){
+			if(graph.nodes.get(i).getId().equals(id)){
+				return i;
+			}
+		}
+		return -1;
+	}
+	private static List<Integer>[] createAdj(OPGraph graph){
+		List<Integer>[] adj  = (List<Integer>[]) new ArrayList[graph.nodes.size()];
+		for(int i = 0;i<graph.nodes.size();i++){
+			adj[i] = new ArrayList<Integer>();
+		}
+		for(OPLine line : graph.lines){
+			int v = findLine(graph, line.getStart());
+			int w = findLine(graph,  line.getEnd());
+			System.out.println("v"+v+":"+w);
+			adj[v].add(w);
+		}
+		return adj;
+		
+	}
+	
+	//using non recursive DFS 
+	private static List<List<OPNode>> traverseGraph(OPGraph graph){
+		boolean[] marked = new boolean[graph.nodes.size()];
+		int source = findSrcNode(graph);
+		if(source < 0){
+			return null;
+		}
+		Iterator<Integer>[] adj = (Iterator<Integer>[])new Iterator[graph.nodes.size()];
+		ArrayList<String> res=new ArrayList<String>();
+		List<Integer>[] list = createAdj(graph);
+		
+		
+		for(int v = 0; v <graph.nodes.size();v++){
+			adj[v] = list[v].iterator();
+		}
+		
+		Stack<Integer> stack = new Stack<Integer>();
+		marked[source] = true;
+		stack.push(source);
+		while(!stack.isEmpty()){
+			int v = stack.peek();
+			if(adj[v].hasNext()){
+				int w = adj[v].next();
+				if(!marked[w]){
+					marked[w] = true;
+					res.add(graph.nodes.get(w).label);
+					stack.push(w);
+				}
+			}else{
+				res.add(graph.nodes.get(v).label);
+				stack.pop();
+			}
+		}
+		
+		for(String st:res){
+			System.out.print(st);
+		}
+		return null;
+	}
+	
+	private static void searchGraph(List<String> common, OPGraph graph,List<OPNode> nodeTaken, List<List<OPNode>> allNodeTaken){
+		OPGraph part = getPartGraph(common,graph);
+		allNodeTaken = traverseGraph(graph);
+		
+	}
+	
+	private static void tryNodeLabel(List<String> common, OPGraph graph,List<OPNode> nodeTaken){
+
+		if(common.isEmpty())
+			return;
+		
+		for(String str : common){
+			for(OPNode node : graph.nodes){
+				if(node.label.equals(str)){
+					nodeTaken.add(node);
+				}
+			}
+		}
+		
+	}
+	
+	/*private static void tryNodeLabel(int flag, List<String> common, OPGraph graph, HashMap<String, Boolean> mapIDs,
 			HashMap<String, Boolean> mapLabel, List<OPNode> nodeTaken, List<List<OPNode>> allNodeTaken){
 
 		if(common.isEmpty())
 			return;
 		
 		List<OPNode> sameNodes = new ArrayList<OPNode>();
-		for(OPNode node : graph.nodes)
+		
+		for(OPNode node : graph.nodes){
 			if(common.get(flag).equals(node.label))
 				sameNodes.add(node);
+		}
 		//System.out.println(flag + " Flag coming!");
 		
 		if(mapLabel.get(common.get(flag)) == true){
@@ -216,9 +256,11 @@ public class HighLevelOP {
 				if(flag == common.size() - 1){
 					List<OPNode> nodeTrace = new ArrayList<OPNode>(nodeTaken);
 					allNodeTaken.add(nodeTrace);
-					System.out.print("\nNEW TRACE: ");
-					for(int j = 0; j < nodeTaken.size(); j++)
-						System.out.print(nodeTaken.get(j).label + ":" + nodeTaken.get(j).id + " ");
+					
+					for(int i = 0;i<nodeTaken.size();i++){
+						System.out.print(nodeTaken.get(i).id+" ");
+					}
+					System.out.println();
 				}
 				else
 					tryNodeLabel(flag+1, common, graph, mapIDs, mapLabel, nodeTaken, allNodeTaken);
@@ -237,16 +279,17 @@ public class HighLevelOP {
 				if(flag == common.size() - 1){
 					List<OPNode> nodeTrace = new ArrayList<OPNode>(nodeTaken);
 					allNodeTaken.add(nodeTrace);
-					
-					System.out.print("\nNEW TRACE: ");
-					for(int j = 0; j < nodeTaken.size(); j++)
-						System.out.print(nodeTaken.get(j).label + ":" + nodeTaken.get(j).id + " ");
+					for(int i = 0;i<nodeTaken.size();i++){
+						System.out.print(nodeTaken.get(i).id+" ");
+					}
+					System.out.println();
 				}
 				else
 					tryNodeLabel(flag+1, common, graph, mapIDs, mapLabel, nodeTaken, allNodeTaken);
 			}
 		}
 	}
+	*/
 	
 	private static List<String> createHighLevelOP(List<OPNode> same1, List<OPNode> same2, OPGraph graph1, 
 			OPGraph graph2){
@@ -256,36 +299,64 @@ public class HighLevelOP {
 		List<String> insertOp = new ArrayList<String>();
 		List<String> moveOp = new ArrayList<String>();
 		List<String> highLevelOp = new ArrayList<String>();
-	
+
 		if(same1 != null && same2 != null){
 			//create matrix
-			Matrix m1 = createMatrix(same1, graph1);
+			Matrix m1 = createMatrix(same1, graph1);		
 			Matrix m2 = createMatrix(same2, graph2);
-			//printMatrix(m1, m2, same1, same2);
+			
+		   // printMatrix(m1, m2, same1, same2);
 
 			//find difference and differenced sub-matrixes
 			Matrix m = findDifference(m1,m2);
-       //     printMatrix(m);
+
 			List<Matrix> ms = new ArrayList<Matrix>();
 			ms = divide(m);
-
+			
+			//printSingleMatrix(ms);
+			//System.out.println("size:"+ms.size());
+			
 			//boolean algebra to find move item
 			List<String> moveItem = findMoveItem(ms);
+			/*for(String str: moveItem){
+				System.out.println(str);
+			}
+			System.out.println("---------------------------");*/
 			moveOp = move(graph1,graph2,moveItem);
 		}		
 		//Important!!! Reduce the time, only for the minimized operation numbers
 		//deleteOp = diff(graph1.getLabelList(),graph2.getLabelList());
 		//insertOp = diff(graph2.getLabelList(),graph1.getLabelList());		
+		
 		deleteOp = delete(graph1,graph2);
 		insertOp = insert(graph1, graph2, same2);
 		
+		/*for(String str:deleteOp){
+			System.out.println(str);
+		}
+		
+		for(String str:moveOp){
+			System.out.println(str);
+		}
+		for(String str:insertOp){
+			System.out.println(str);
+		}*/
 		highLevelOp.addAll(deleteOp);
 		highLevelOp.addAll(moveOp);
 		highLevelOp.addAll(insertOp);
-
+		
 		return highLevelOp;
 	}
 	
+	private static void printSingleMatrix(List<Matrix> ms){
+		for(Matrix matrix : ms){
+			for(int i = 0; i < matrix.n; i++){
+				for(int j = 0; j < matrix.n; j++)
+					System.out.print(matrix.matrix[i][j] + "  ");
+				System.out.println();
+			}
+		}
+	}
 	/**
 	 * Find same nodes' labels set	
 	 * @param nodes1
@@ -495,13 +566,14 @@ public class HighLevelOP {
 		List<OPNode> visitList= new ArrayList<OPNode>();
 		HashMap<String, Boolean> mapIDs = new HashMap<String, Boolean>();
 		OPNode v = new OPNode();
-		
+
 		for(int i = 0; i < graph.nodes.size(); i++){
 			v = graph.nodes.get(i);
 			mapIDs.put(v.id, false);
-			//System.out.println(i+ " "+v.id);
 		}	
 		v = node1;		
+		
+	
 		for(int i = 0; i < graph.nodes.size(); i++)
 			if(!mapIDs.get(v.id)){
 				mapIDs.put(v.id, true);				
@@ -511,14 +583,15 @@ public class HighLevelOP {
 				visitList.add(v);
 				while(!visitList.isEmpty()){
 					OPNode u = new OPNode( visitList.remove(0) ); // use the List as a Queue
+					//System.out.println("child:"+'\n'+u.children.size());
 					for(int j = 0; j < u.children.size(); j++){
-						OPNode w = new OPNode( u.children.get(j) );
-						//System.out.print('\n'+w.id);
-						if(!mapIDs.get(w.id)){ // mapIDs.get(w.id) == null, maybe
-							mapIDs.put(w.id, true);
-							if(w.id == node2.id)
+						//OPNode w = new OPNode( u.children.get(j) );
+						if(!mapIDs.get(u.children.get(j).id)){ // mapIDs.get(w.id) == null, maybe
+							//System.out.println("u:"+u.label+"child:"+u.children.get(j).label);
+							mapIDs.put(u.children.get(j).id, true);
+							if(u.children.get(j).id == node2.id)
 								return true;							
-							visitList.add(w);
+							visitList.add(u.children.get(j));
 						}
 					}
 				}
@@ -551,8 +624,10 @@ public class HighLevelOP {
 					m.matrix[i][j] = "k";
 					continue;
 				}
+				//System.out.println("i->j path:"+sames.get(i).label+":"+sames.get(j).label);
+				boolean pathij = BFSTraverse(sames.get(i), sames.get(j), graph);	
 				
-				boolean pathij = BFSTraverse(sames.get(i), sames.get(j), graph);				
+				//System.out.println("j->i path:"+sames.get(j).label+":"+sames.get(i).label);
 				boolean pathji = BFSTraverse(sames.get(j), sames.get(i), graph);
 				
 				if(pathij == true && pathji == false){
@@ -564,8 +639,8 @@ public class HighLevelOP {
 					m.matrix[j][i] = "1";
 				}
 				else if(pathij == true && pathji == true){
-					m.matrix[i][j] = "*";
-					m.matrix[j][i] = "*";
+					m.matrix[i][j] = "L";
+					m.matrix[j][i] = "L";
 				}
 				else{
 					m.matrix[i][j] = "*";
@@ -613,25 +688,25 @@ public class HighLevelOP {
 		for(Matrix t:ms){
 			if(t.n==0) 
 				continue;
-			//System.out.println("findMoveItem Function");
-			
+		
 			QuineMcCluskey qm = new QuineMcCluskey();
 			List<String> QMoutput=new ArrayList<String>();
-			for(int i=0;i<t.n;i++){	
-				String line="";
+			
+			for(int i=0;i<t.n;i++){
+				boolean flag = false;
+				String strLine = "";
 				for(int j=0;j<t.n;j++){
-					line=line+t.matrix[i][j];
+					strLine += t.matrix[i][j];
 				}
-				try {
-					boolean flag = false;
-					for(char a:line.toCharArray()){
-						if(a!='0'){
-							flag = true;
-							break;
-						}
-					}
-					if(flag)
-						qm.addTerm(line);
+				
+				if(strLine.contains("1")){
+					flag = true;
+				}
+	
+				try{
+					if(flag){
+						qm.addTerm(strLine);
+					}	
 				} catch (ExceptionQuine e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -653,9 +728,9 @@ public class HighLevelOP {
 					e.printStackTrace();
 				}
 			}
+			
 			findMinimalItem(QMoutput,t,moveItem);
 		}
-		//System.out.println("1: "+moveItem);
 		return moveItem;
 	}
 	
@@ -674,7 +749,7 @@ public class HighLevelOP {
 			int count=0;
 			if(temp.length()>0){
 				for(int i=0;i<temp.length();i++){
-					if(temp.charAt(i)==1){
+					if(temp.charAt(i) == '1'){
 						count++;
 					}
 				}
@@ -686,7 +761,7 @@ public class HighLevelOP {
 		}
 		if(mins.length()>0){
 			for(int i=0;i<mins.length();i++){
-				if(mins.charAt(i)=='1'){
+				if(mins.charAt(i)== '1'){
 					moveItem.add(t.getNames().get(i));
 				}
 			}
@@ -755,20 +830,16 @@ public class HighLevelOP {
 	{
 		ArrayList<String> moves=new ArrayList<String>();
 		
-		for(String s:moveItem)
-		{
-			for(OPNode n:graph2.nodes)
-			{
-				if(s.equals(n.label))
-				{
+		for(String s:moveItem){
+			for(OPNode n:graph2.nodes){
+				if(s.equals(n.label)){
 					String t="";
-					//parent nodes
-					if(n.getParent()!=null){
+					//parent nodes					
+					if(n.getParent().size() != 0){
 						if(n.getParent().size()==1){
 							t="move(S,"+n.label+","+n.getParent().get(0).label+",";
-						}
-						else if(n.getParent().size()>=1)
-						{
+							
+						}else if(n.getParent().size()>=1){
 							String temp="";
 							for (OPNode nodep : n.getParent()) {
 								if(temp.length()==0){
@@ -779,16 +850,14 @@ public class HighLevelOP {
 								}
 							}
 							
-							t="move(S,"+n.label+","+"{"+temp+"}"+",";
+							t = "move(S,"+n.label+","+"{"+temp+"}"+",";
 						}
-					}
-					else{
+					}else{
 						t="move(S,"+n.label+","+"startNode"+",";
 					}
 					
 					// child nodes
-					if(n.getChildren()!=null)
-					{
+					if(n.getChildren().size() != 0){
 						if(n.getChildren().size()==1){
 							t=t+n.getChildren().get(0).label+")";						
 						}
@@ -827,11 +896,14 @@ public class HighLevelOP {
 		ArrayList<String> diffList = diff(graph2.getLabelList(),graph1.getLabelList());		
 		HashMap<String, Boolean> mapID2 = new HashMap<String, Boolean>();
 		
+		if(nodeResult != null){
+			for(OPNode v : nodeResult)
+				mapID2.put(v.id, true);
+		}
+		
 		for(OPNode v : graph2.nodes)
 			mapID2.put(v.id, false);
-		for(OPNode v : nodeResult)
-			mapID2.put(v.id, true);
-
+		
 		OPNode v = new OPNode();
 		for(int i = 0; i < diffList.size(); i++){
 			String operation = "insert(S," + diffList.get(i) + ",";

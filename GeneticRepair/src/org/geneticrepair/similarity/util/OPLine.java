@@ -2,7 +2,7 @@ package org.geneticrepair.similarity.util;
 
 public class OPLine {
 	/**
-	 * @author ËÎ½ð·ï 
+	 * @author 
 	 */
 	public String start;
 	public String end;

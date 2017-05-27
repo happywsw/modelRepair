@@ -46,7 +46,7 @@ public class HNNetToEPC{
 	public HNNetToEPC() {
 	}
 
-	//����ӵķ�������heuristic net -> EPC
+	//modify  net -> EPC
 		public EPC convert(HeuristicsNet original) {
 			HeuristicsNet hNet = null;
 			LogReader log = null;

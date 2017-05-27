@@ -61,7 +61,6 @@ public class Fitness {
 	private Random generator = null;
 	private ModelSimilarity modelUtil = new ModelSimilarity();
 	private long time = 0;
-	private long time2 = 0;
 	// public DTExtraBehaviorPunishmentFitness(LogReader log) {
 	// generator = new Random(Long.MAX_VALUE);
 	// logReader = log;
@@ -274,22 +273,19 @@ public class Fitness {
 					 * fitness = f1 - kappa * f2 - gamma * f3;
 					 */
 				logFitness = (f1 - kappa * f2);
-			
+				
+				if(belta != 0){
 					
-				long start1 = System.nanoTime();
-				EPC modifyEPC = new HNNetToEPC().convert(population[i]);
-				time2 += (System.nanoTime() - start1);
-				if(modifyEPC != null){
-					if(belta!=0){
-						//long start2 = System.nanoTime();
+					
+					EPC modifyEPC = new HNNetToEPC().convert(population[i]);
+					if(modifyEPC != null){
+						long start2 = System.nanoTime();
 						similarity = modelUtil.calculateSim(epc, modifyEPC);
-						//time += (System.nanoTime() - start2);
-					}
-					fitness = alpha * logFitness + belta * similarity;		
-				}else{
-					fitness = 0;
-				}	
-			
+						time += (System.nanoTime() - start2);
+					}	
+				}
+				fitness = alpha * logFitness + belta * similarity;
+
 				population[i].setFitness(fitness);
 				population[i].setlogFitness(logFitness);
 				population[i].setSimilarity(similarity);
@@ -322,9 +318,5 @@ public class Fitness {
 	}
 	public long getTime(){
 		return this.time;
-	}
-	
-	public long getTime2(){
-		return this.time2;
 	}
 }

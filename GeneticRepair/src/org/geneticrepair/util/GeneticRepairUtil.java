@@ -28,6 +28,8 @@ import org.processmining.framework.plugin.ProvidedObject;
 import org.processmining.framework.ui.Message;
 import org.processmining.framework.ui.menus.LogReaderMenu;
 import org.processmining.framework.util.StopWatch;
+import org.processmining.importing.epml.epmlImport;
+import org.processmining.mining.MiningResult;
 import org.processmining.mining.epcmining.EPCResult;
 
 import gui.action.NewAction;
@@ -54,11 +56,16 @@ public class GeneticRepairUtil {
 		return logReader;
 	}
 
-	public EPC readEPC(String filePath) throws IOException {
+	public ConfigurableEPC readEPC(String filePath) throws IOException {
 		InputStream input = new FileInputStream(filePath);
-		EPC epc = EPC.loadEPML(filePath);
-		epc.cleanEPC();
-		return epc;
+	//	EPC epc = EPC.loadEPML(filePath);
+		epmlImport epmlImp = new epmlImport();
+		EPCResult epc = (EPCResult) epmlImp.importFile(input);
+		System.out.println("epc result:"+epc);
+		//epc.cleanEPC();
+		ConfigurableEPC conEPC = epc.getEPC();
+		
+		return conEPC;
 	}
 
 	public void EPCexport() {
